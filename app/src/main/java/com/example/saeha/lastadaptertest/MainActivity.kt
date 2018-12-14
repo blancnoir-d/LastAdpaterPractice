@@ -1,5 +1,6 @@
 package com.example.saeha.lastadaptertest
 
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -43,6 +44,28 @@ class MainActivity : AppCompatActivity() {
             // ItemData 객체에 관한 부분
             .map<ItemData,ItemMainBinding>(R.layout.item_main){
                 onBind {
+
+                    val position = it.adapterPosition
+
+                    // 객체가 가진 값에 따라서 UI 에 반영 하는 방법
+
+                    it.binding.apply {
+                       val obob = users[position] as ItemData
+                       val getNumber = obob.number.toInt()
+                        //미출석/퇴실 상태 반영
+                        if ( getNumber == -1) {
+                            it.binding.textView.setTextColor(Color.parseColor("#333333"))
+                        } else {
+                            it.binding.textView.setTextColor(Color.parseColor("#ffffff"))
+                        }
+
+//                        //체크박스
+//                        it.binding.cbAttendanceChoiceStudent.setOnCheckedChangeListener { buttonView, isChecked ->
+//                            nonAttendanceList[positionNum].checked = isChecked
+//                            changeBlockState(1)  //check가 있으면 그 결과에 따라서 리스트 블럭
+//                            changeAllCheckState(1, 0)
+//                        }
+                    }
 
                 }
                 onClick {
